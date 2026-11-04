@@ -44,12 +44,11 @@ python3 ~/scan_test.py
 
 ## Troubleshooting history
 
-1. `ros2: command not found` and missing workspace path, caused by the ROS 1 vs ROS 2 mismatch above.
-2. `RLException: wheeltec_lidar.launch is neither a launch file...`, caused by manually re-sourcing Noetic. Fixed with a fresh SSH session.
-3. First launch with the default M10P mode printed repeated `error` lines, then crashed with `free(): invalid pointer`. That run did not auto-start a ROS master, meaning one was already running, likely from a second session. A second reader on the port is the most likely cause.
-4. `ls_M10P_PLUS_uart` mode (921600 baud) launched quietly but published no messages. Wrong protocol for this unit.
-5. Raw byte check across baud rates showed structured data only at 500000 (`A5 5A` header, smoothly varying 16-bit values). No `7B ... 7D` chassis frames at 115200, so the device links are not swapped.
-6. Relaunched the default M10P mode with the port free: no errors, 12 Hz.
+1. `RLException: wheeltec_lidar.launch is neither a launch file...`, caused by manually re-sourcing Noetic. Fixed with a fresh SSH session.
+2. First launch with the default M10P mode printed repeated `error` lines, then crashed with `free(): invalid pointer`. That run did not auto-start a ROS master, meaning one was already running, likely from a second session. A second reader on the port is the most likely cause.
+3. `ls_M10P_PLUS_uart` mode (921600 baud) launched quietly but published no messages. Wrong protocol for this unit.
+4. Raw byte check across baud rates showed structured data only at 500000 (`A5 5A` header, smoothly varying 16-bit values). No `7B ... 7D` chassis frames at 115200, so the device links are not swapped.
+5. Relaunched the default M10P mode with the port free: no errors, 12 Hz.
 
 Raw byte check used (read only, stop the driver first):
 ```bash
@@ -102,7 +101,4 @@ rospy.spin()
 
 ## Open items
 
-- [ ] Ask Dr. Bui whether the ROS 1 Noetic image is intended, since the manual and the project plan assume ROS 2 Humble and ROS 1 is end of life.
-- [ ] Identify the fixed object at about 0.55 m, 12 degrees (robot frame) seen at the start of the run. If it is part of the setup, it will appear in every scan.
-- [ ] Record a rosbag of `/scan` (`rosbag record /scan`) and copy it to a laptop for offline preprocessing work.
 - [ ] Agree on a one-driver rule when two people are connected to the robot.
