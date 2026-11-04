@@ -10,7 +10,7 @@ The LiDAR works. It is a Leishen M10P on serial at 500000 baud, publishing `/sca
 
 ## Environment findings
 
-- **The robot runs ROS 1 Noetic, not ROS 2 Humble.** `/opt/ros` contains only `noetic`. The user manual (v20250910) describes ROS 2 Humble and gives the workspace path `/home/wheeltec/wheeltec_ros2/install/setup.bash`, which does not exist on this robot. Use `roslaunch` and `rostopic`, not `ros2`.
+
 - `~/.bashrc` already sources Noetic and all workspaces (`wheeltec_robot`, `wheeltec_arm`, `wheeltec_lidar`, `cartographer_ws`, `.autoware`) on login. **Do not manually source `/opt/ros/noetic/setup.bash`**, because it resets the package path and hides the Wheeltec packages. If that happens, exit and SSH back in.
 - `ROS_MASTER_URI` is `http://192.168.0.100:11311`, so anyone SSH'd into the robot shares the same ROS master.
 - The robot clock is unset (shows 1970) because its hotspot has no internet. Harmless for now, but it can cause confusing timestamps.
